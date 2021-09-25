@@ -20,4 +20,16 @@ async def bye(ctx):
     farewells = ["Bye!", "See you later!", "Ciao!", "Goodbye!", "Adieu!"]
     await ctx.send(random.choice(farewells))
 
+@client.command()
+async def dm(ctx):
+  await ctx.message.author.send("Hi! My name is ShellProject, great to meet you!")
+
+@client.command()
+async def poll(ctx, question, option1 = None, option2 = None):
+  if option1 == None and option2 == None:
+    await ctx.channel.purge(limit=1)
+    message = await ctx.send(f"```New poll: \n{question}```\n**✅ = Yes**\n**❎ = No**\n")
+    await message.add_reaction('❎')
+    await message.add_reaction('✅')
+
 client.run(TOKEN)
