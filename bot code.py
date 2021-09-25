@@ -37,7 +37,7 @@ async def on_member_remove(member):
     leaveMessage.add_field(name="Display Name", value=member.display_name, inline=False)
     leaveMessage.add_field(name="Join Date" , value=member.joined_at, inline=False)
     leaveMessage.set_thumbnail(url=member.avatar_url)
-    await channel.send(embed=leaveMessage)
+    await channel.send(embed=leaveMessage)    
 
 #event vs command
 
@@ -60,6 +60,17 @@ async def delete(ctx, amount=1):
     #print("This went through")
     amount = amount + 1
     await ctx.channel.purge(limit=amount)
+
+@client.command()
+async def spongebob(ctx, input):
+    new_msg = ""
+    for s in input:
+        num = random.randint(1, 100)
+        if(num % 2 == 0):  
+            new_msg += s.lower()
+        else:
+            new_msg +=s.upper()
+    await ctx.send(new_msg)
 
 @client.command()
 async def poll(ctx, question, option1 = None, option2 = None, option3 = None, option4 = None, option5= None, option6 = None):
@@ -89,5 +100,5 @@ async def poll(ctx, question, option1 = None, option2 = None, option3 = None, op
 
         for emoteReaction in reactOptions[:index]:
             await msg.add_reaction(emoteReaction)
-
+            
 client.run(TOKEN)
