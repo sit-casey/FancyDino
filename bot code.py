@@ -1,6 +1,8 @@
 import discord
 import random
+from discord import channel
 from discord.ext import commands
+import asyncio
 
 TOKEN = open("token.txt","r").readline()
 
@@ -46,6 +48,12 @@ async def bye(ctx):
 @client.command()
 async def dm(ctx):
   await ctx.message.author.send("Hi! My name is ShellProject, great to meet you!")
+
+@client.command()
+async def delete(ctx, amount=1):
+    #print("This went through")
+    amount = amount + 1
+    await ctx.channel.purge(limit=amount)
 
 @client.command()
 async def poll(ctx, question, option1 = None, option2 = None):
