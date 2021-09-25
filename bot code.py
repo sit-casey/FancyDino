@@ -24,18 +24,18 @@ async def on_member_join(member):
 @client.event
 async def on_member_remove(member):
     channel = client.get_channel(891084381681229837)
-    leaveMessage = discord.Embed
-    leaveMessage.setTitle("A user has left the guild")
-    leaveMessage.setMessage(client.get_user)
-    leaveMessage.set_image("testing.png")
-    await channel.send(leaveMessage)
-
-#Above is events, below is commands?
+    leaveMessage = discord.Embed(title = "A user has left the guild")
+    #leaveMessage.setTitle("A user has left the guild")
+    #leaveMessage.setMessage(client.get_user)
+    leaveMessage.add_field(name="Member Name", value=member.name, inline=True)
+    leaveMessage.add_field(name="Display Name", value=member.display_name, inline=True)
+    leaveMessage.add_field(name="Join Date" , value=member.joined_at, inline=False)
+    leaveMessage.set_thumbnail(url="https://i.pinimg.com/564x/6b/05/d9/6b05d9114529fe7833ae94a2d790f2fc.jpg")
+    await channel.send(embed=leaveMessage)
 
 @client.command()
 async def hi(ctx):
     greetings = ["Hello there!", "Hiya scrub", "Hi", "Want a shell?", "Greetings!"]
     await ctx.send(random.choice(greetings))
-
 
 client.run(TOKEN)
