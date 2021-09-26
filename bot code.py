@@ -1,5 +1,6 @@
 import discord
 import random
+import string
 from discord import channel
 from discord.ext import commands
 import asyncio
@@ -71,6 +72,20 @@ async def spongebob(ctx, input):
         else:
             new_msg +=s.upper()
     await ctx.send(new_msg)
+
+@client.command()
+async def img(ctx):
+    chars = string.ascii_letters + string.digits
+    code = ""
+    for x in range(5):
+        code+= random.choice(chars)
+    #imglink = "https://i.imgur.com/" + code + ".jpg"
+    rand = random.randint(0,1000000)
+    imglink = 'https://source.unsplash.com/random?sig=' + str(rand)
+
+    msg = discord.Embed(title="I found an image!")
+    msg.set_image(url=imglink)
+    await ctx.send(embed=msg)
 
 @client.command()
 async def poll(ctx, question, option1 = None, option2 = None, option3 = None, option4 = None, option5= None, option6 = None):
