@@ -4,6 +4,8 @@ import string
 from discord import channel
 from discord.ext import commands
 import asyncio
+import requests
+import json
 
 from discord.ext.commands import context
 
@@ -14,6 +16,8 @@ intents.members = True
 intents.presences = True
 
 client = commands.Bot(command_prefix= '!', intents = intents)
+
+URL = "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,racist&type=single"
 
 print(discord.__version__)
 
@@ -115,5 +119,13 @@ async def poll(ctx, question, option1 = None, option2 = None, option3 = None, op
 
         for emoteReaction in reactOptions[:index]:
             await msg.add_reaction(emoteReaction)
+
+@client.command()
+async def get_joke(ctx):
+    request = requests.get(URL)
+    json_data = json.loads(request.text)
+    joke = json_data["joke"]
+    await ctx.send(joke)
+    
             
 client.run(TOKEN)
